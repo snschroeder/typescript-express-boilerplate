@@ -15,6 +15,7 @@ services:
     command: >
       bash -c "npm install
       && npm run dev"
+
   ts-express-postgres:
     image: postgres:16.2
     hostname: ts-express-postgres
@@ -22,9 +23,9 @@ services:
     ports:
       - 5433:5433
     environment:
-      POSTGRES_USER: ts-express
-      POSTGRES_PASSWORD: tes-express
-      POSTGRES_DB: ts-express-dev
+      - POSTGRES_USER=${DB_USERNAME} 
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     restart: on-failure
     volumes:
       - ts-express-data:/var/lib/postgresql/data
