@@ -7,5 +7,8 @@ export const UserService = {
       'email'
     )
     .where({ id })
-    .first()
+    .first(),
+
+  createNewUser: (db: Knex, email: string, password: string) => db('user')
+    .insert({ email, password }, ['id', 'email'])
 }
