@@ -5,6 +5,7 @@ import type {
   NextFunction,
   RequestHandler
 } from 'express'
+import type { Knex } from 'knex'
 
 import { UserService } from './user-service'
 
@@ -14,9 +15,8 @@ userRouter
   .route('/:userId')
   .get((async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params
-
     try {
-      const userData = await UserService.getUser(req.app.get('db'), parseInt(userId, 10))
+      const userData = await UserService.getUser(req.app.get('db') as Knex, parseInt(userId, 10))
       return res.status(200).json(userData)
     } catch (error) {
       next(error)

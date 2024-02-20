@@ -1,5 +1,7 @@
+import type { Knex } from 'knex'
+
 export const UserService = {
-  getUser: (db: any, id: number) => db('user')
+  getUser: (db: Knex, id: number) => db('user')
     .select(
       'id',
       'email'
