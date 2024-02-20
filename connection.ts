@@ -6,3 +6,5 @@ export const connection = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 }
+
+export const NODE_ENV = process.env.NODE_ENV ?? 'development'

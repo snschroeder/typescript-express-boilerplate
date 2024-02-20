@@ -1,7 +1,7 @@
 import Knex from 'knex'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const knexConfig = require('./knexfile')
+import { NODE_ENV } from './connection'
+import knexConfig from './knexfile'
 
-const knex = Knex(knexConfig.development)
+const knex = Knex(knexConfig[NODE_ENV])
 
 export default knex

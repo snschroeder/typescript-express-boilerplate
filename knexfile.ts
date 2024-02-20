@@ -12,7 +12,31 @@ const knexConfig: Record<string, Knex.Config> = {
     seeds: {
       directory: './db_management/seeds'
     }
+  },
+
+  staging: {
+    client: 'pg',
+    connection,
+    pool: { min: 0, max: 10 },
+    migrations: {
+      directory: './db_management/migrations'
+    },
+    seeds: {
+      directory: './db_management/seeds'
+    }
+  },
+
+  production: {
+    client: 'pg',
+    connection,
+    pool: { min: 0, max: 10 },
+    migrations: {
+      directory: './db_management/migrations'
+    },
+    seeds: {
+      directory: './db_management/seeds'
+    }
   }
 }
 
-module.exports = knexConfig
+export default knexConfig
