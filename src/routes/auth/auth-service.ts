@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../../../connection'
 
 import type { Knex } from 'knex'
+import type { jwtPayload } from '../../../types'
 
 const AuthService = {
   getUser: (db: Knex, email: string) => db('user')
@@ -16,15 +17,16 @@ const AuthService = {
 
   validatePassword: async (db: Knex, email: string, password: string) => {
     const user = await AuthService.getUser(db, email)
-    const match = await bcrypt.compare(password, user.password)
+    const match = await bcrypt.compare(password, user.password as string)
     return match
   },
 
-  createJWT: (subject: any, payload: any) => jwt.sign(payload, JWT_SECRET, {
+  createJWT: (subject: string, payload: jwtPayload) => jwt.sign(payload, JWT_SECRET, {
     subject,
-    expiresIn: '180d',
-    algorithm: 'HS256'
-  })
+    expiresIn: '180d'
+  }),
+
+  verifyJWT: (token: string) => jwt.verify(token, JWT_SECRET)
 }
 
 export { AuthService }
