@@ -9,12 +9,32 @@ import userRouter from './routes/user/user-router'
 const app = express()
 const port = process.env.PORT ?? 3000
 
+// =================== //
+// Middleware          //
+// =================== //
+
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
 app.set('db', knex)
 
+// =================== //
+// Routes              //
+// =================== //
+
 app.use('/user', userRouter)
+
+// =================== //
+// Error Handling      //
+// =================== //
+
+// Catch-all 404 handler
+
+app.use((req, res, next) => {
+  const error = new Error('Path not found')
+  error.status = 404
+  next(error)
+})
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`)

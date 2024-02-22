@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../../../connection'
 
 import type { Knex } from 'knex'
-import type { jwtPayload } from '../../../types'
+import type { User } from '../../../types'
 
 const AuthService = {
   getUser: (db: Knex, email: string) => db('user')
@@ -21,7 +21,7 @@ const AuthService = {
     return match
   },
 
-  createJWT: (subject: string, payload: jwtPayload) => jwt.sign(payload, JWT_SECRET, {
+  createJWT: (subject: string, payload: User) => jwt.sign(payload, JWT_SECRET, {
     subject,
     expiresIn: '180d'
   }),
