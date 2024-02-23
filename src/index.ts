@@ -6,6 +6,7 @@ import 'dotenv/config'
 
 import userRouter from './routes/user/user-router'
 import errorHandler from './error-handler/error-handler'
+import { ServerError } from './error-handler/ServerError'
 
 const app = express()
 const port = process.env.PORT ?? 3000
@@ -31,8 +32,7 @@ app.use('/user', userRouter)
 
 // Catch-all 404 handler
 app.use((req, res, next) => {
-  const error = new Error('Path not found')
-  error.status = 404
+  const error = new ServerError({ message: 'Path not found', status: 404 })
   next(error)
 })
 
