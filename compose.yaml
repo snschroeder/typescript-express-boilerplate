@@ -33,7 +33,7 @@ services:
       - ts-express-data:/var/lib/postgresql/data
       - ./database_dumps/:/docker-entrypoint-initdb.d/
 
-    ts-express-postgres-test:
+  ts-express-postgres-test:
     image: postgres:16.2
     hostname: ts-express-postgres-test
     container_name: ts-express-postgres-test
