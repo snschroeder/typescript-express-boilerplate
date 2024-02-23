@@ -33,5 +33,21 @@ services:
       - ts-express-data:/var/lib/postgresql/data
       - ./database_dumps/:/docker-entrypoint-initdb.d/
 
+    ts-express-postgres-test:
+    image: postgres:16.2
+    hostname: ts-express-postgres-test
+    container_name: ts-express-postgres-test
+    ports:
+      - 5434:5434
+    environment:
+      - POSTGRES_USER=${TEST_DB_USERNAME} 
+      - POSTGRES_PASSWORD=${TEST_DB_PASSWORD}
+      - POSTGRES_DB=${TEST_DB_NAME}
+    restart: on-failure
+    volumes:
+      - ts-express-data-test:/var/lib/postgresql/data
+      - ./database_dumps/:/docker-entrypoint-initdb.d/
+
 volumes:
   ts-express-data:
+  ts-express-data-test:
